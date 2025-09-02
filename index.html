@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA no Poder Judiciário - Apresentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            overflow: hidden;
+        }
+        
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+            position: relative;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-header {
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #2a5298;
+            font-size: 2em;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.15em;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #2a5298;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #f0f4ff 0%, #e6efff 100%);
+            padding: 20px;
+            border-left: 4px solid #2a5298;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .column {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        button {
+            padding: 12px 25px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+        }
+        
+        button:hover {
+            background: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+        
+        .presenter-note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-size: 0.95em;
+            color: #856404;
+        }
+        
+        .presenter-note strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #533f03;
+        }
+        
+        .ai-examples {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .ai-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .ai-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .ai-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .risk-item {
+            background: #fff;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .risk-item:hover {
+            background: #dc3545;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #2a5298;
+            border-radius: 50%;
+            margin-right: 20px;
+            z-index: 2;
+        }
+        
+        .timeline-content {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            .ai-examples {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Título -->
+        <div class="slide active">
+            <span class="slide-number">1/12</span>
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; text-align: center;">
+                <h1 style="font-size: 3em; margin-bottom: 30px;">Para Além da Eficiência</h1>
+                <p style="font-size: 1.8em; color: #2a5298; margin-bottom: 40px;">
+                    Governança de Dados e Supervisão Jurisdicional como Garantias da Segurança Jurídica na Aplicação da Inteligência Artificial
+                </p>
+                <div style="margin-top: 60px;">
+                    <p style="font-size: 1.3em; color: #666;">Apresentadores:</p>
+                    <p style="font-size: 1.2em; margin-top: 10px;">Ivan | Ciro | Bruno</p>
+                </div>
+                <div class="presenter-note">
+                    <strong>Apresentador: Ivan (30 seg)</strong>
+                    Bom dia, cumprimentamos a banca. Nossa pesquisa versa sobre os impactos da IA no Poder Judiciário brasileiro, com foco na tensão entre eficiência e segurança jurídica.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Estrutura da Apresentação -->
+        <div class="slide">
+            <span class="slide-number">2/12</span>
+            <div class="slide-header">
+                <h2>Estrutura da Apresentação</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Parte I - Contextualização</strong>
+                        <p>O cenário atual do Judiciário e a promessa da IA</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Parte II - Riscos e Governança </strong>
+                        <p>Desafios éticos e técnicos da automação judicial</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Parte III - Regulamentação e Perspectivas</strong>
+                        <p>Caminhos para uma IA judicial responsável</p>
+                    </div>
+                </div>
+            </div>
+            <div class="presenter-note">
+                <strong>Ivan +/- 30 seg)</strong>
+                Nossa apresentação está dividida em três partes que abordam desde o contexto atual até as perspectivas regulatórias.
+            </div>
+        </div>
+
+        <!-- Slide 3: O Problema -->
+        <div class="slide">
+            <span class="slide-number">3/12</span>
+            <div class="slide-header">
+                <h2>O Desafio do Judiciário Brasileiro</h2>
+            </div>
+            <div class="highlight">
+                <h3 style="color: #dc3545;">77 milhões de processos em tramitação</h3>
+                <p style="font-size: 1.2em;">Tempo médio de tramitação: 2 anos e 2 meses</p>
+            </div>
+            <ul style="margin-top: 30px;">
+                <li><strong>Morosidade crônica:</strong> Compromete o direito à razoável duração do processo (CF, art. 5º, LXXVIII)</li>
+                <li><strong>Sobrecarga estrutural:</strong> Déficit de recursos humanos e materiais</li>
+                <li><strong>Complexidade crescente:</strong> Demandas sociais cada vez mais sofisticadas</li>
+                <li><strong>Descrédito institucional:</strong> Perda de legitimidade perante a sociedade</li>
+            </ul>
+            <div class="presenter-note">
+                <strong>Apresentador: Ivan (45 seg)</strong>
+                O Judiciário brasileiro enfrenta uma crise estrutural. Com 77 milhões de processos, a morosidade compromete direitos fundamentais e a própria legitimidade institucional.
+            </div>
+        </div>
+
+        <!-- Slide 4: IA como Solução -->
+        <div class="slide">
+            <span class="slide-number">4/12</span>
+            <div class="slide-header">
+                <h2>Inteligência Artificial no Judiciário: Casos Práticos</h2>
+            </div>
+            <div class="ai-examples">
+                <div class="ai-card">
+                    <h4>VICTOR (STF)</h4>
+                    <p>Triagem de recursos com repercussão geral</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">↗ Redução de 40% no tempo de análise</p>
+                </div>
+                <div class="ai-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <h4>ELIS (TJPE)</h4>
+                    <p>Automatização de decisões repetitivas</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">↗ 70.000 processos analisados/mês</p>
+                </div>
+                <div class="ai-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <h4>ALEI (TRF1)</h4>
+                    <p>Agrupamento por precedentes</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">↗ Acelera julgamentos em massa</p>
+                </div>
+                <div class="ai-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <h4>ASLAN (TJAL)</h4>
+                    <p>Classificação de petições</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">↗ 96% de acurácia</p>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 30px;">
+                <p><strong>Brasil:</strong> Mais de 70 projetos de IA em funcionamento no Judiciário</p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Ivan (1 min)</strong>
+                A IA já é realidade no Judiciário brasileiro. Victor, Elis e outros sistemas demonstram ganhos expressivos de produtividade. Mas a que custo?
+            </div>
+        </div>
+
+        <!-- Slide 5: Tensão Central -->
+        <div class="slide">
+            <span class="slide-number">5/12</span>
+            <div class="slide-header">
+                <h2>A Tensão Fundamental</h2>
+            </div>
+            <div class="two-columns">
+                <div class="column" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+                    <h3 style="color: #1565c0;">⚡ Celeridade</h3>
+                    <ul>
+                        <li>Direito fundamental (CF art. 5º, LXXVIII)</li>
+                        <li>Eficiência administrativa</li>
+                        <li>Economia processual</li>
+                        <li>Padronização de respostas</li>
+                    </ul>
+                </div>
+                <div class="column" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);">
+                    <h3 style="color: #c2185b;">⚖️ Equidade</h3>
+                    <ul>
+                        <li>Justiça no caso concreto</li>
+                        <li>Análise individualizada</li>
+                        <li>Consideração de contextos</li>
+                        <li>Dimensão ética da jurisdição</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 30px; text-align: center;">
+                <p style="font-size: 1.3em; color: #1e3c72;">
+                    "Como conciliar a promessa de eficiência com a garantia de justiça substancial?"
+                </p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Ivan (45 seg)</strong>
+                Chegamos ao cerne da questão: a tensão entre celeridade e equidade. Passo agora a palavra ao Bruno para discutir os riscos dessa equação.
+            </div>
+        </div>
+
+        <!-- Slide 6: Riscos da IA -->
+        <div class="slide">
+            <span class="slide-number">6/12</span>
+            <div class="slide-header">
+                <h2>Riscos e Desafios da Automação Judicial</h2>
+            </div>
+            <div class="risk-matrix">
+                <div class="risk-item">
+                    <h4>🔒 Opacidade</h4>
+                    <p>"Black Box"</p>
+                </div>
+                <div class="risk-item">
+                    <h4>⚠️ Vieses</h4>
+                    <p>Discriminação algorítmica</p>
+                </div>
+                <div class="risk-item">
+                    <h4>❌ Contestação</h4>
+                    <p>Déficit de contraditório</p>
+                </div>
+                <div class="risk-item">
+                    <h4>🤖 Desumanização</h4>
+                    <p>Perda do elemento humano</p>
+                </div>
+                <div class="risk-item">
+                    <h4>📊 Qualidade</h4>
+                    <p>Dados inadequados</p>
+                </div>
+                <div class="risk-item">
+                    <h4>🔐 Segurança</h4>
+                    <p>Vulnerabilidades</p>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 30px;">
+                <p><strong>Distinção crucial:</strong></p>
+                <p>• IA de apoio ≠ IA decisória</p>
+                <p>• A substituição do magistrado é constitucionalmente impossível</p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Ciro (1 min)</strong>
+                Os sistemas de IA trazem riscos significativos. A opacidade algorítmica e os vieses comprometem princípios fundamentais do processo judicial.
+            </div>
+        </div>
+
+        <!-- Slide 7: Governança de Dados -->
+        <div class="slide">
+            <span class="slide-number">7/12</span>
+            <div class="slide-header">
+                <h2>Governança de Dados como Salvaguarda</h2>
+            </div>
+            <h3>Pilares da Governança Responsável:</h3>
+            <ul>
+                <li><strong>Qualidade dos dados:</strong> Curadoria rigorosa das bases de treinamento</li>
+                <li><strong>Transparência:</strong> Algoritmos explicáveis e auditáveis</li>
+                <li><strong>Rastreabilidade:</strong> Documentação completa do ciclo de vida</li>
+                <li><strong>Proteção de dados:</strong> Conformidade com a LGPD</li>
+            </ul>
+            <div class="highlight" style="margin-top: 30px;">
+                <h4>📋 Resolução CNJ nº 615/2025</h4>
+                <p><strong>Art. 22:</strong> Garantia de transparência e segurança</p>
+                <p><strong>Art. 26:</strong> Dados de fontes públicas com curadoria</p>
+                <p><strong>Art. 34:</strong> Supervisão humana obrigatória</p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Ciro (1 min)</strong>
+                A Resolução 615/2025 do CNJ estabelece marcos importantes, exigindo transparência, qualidade de dados e supervisão humana obrigatória.
+            </div>
+        </div>
+
+        <!-- Slide 8: Supervisão Jurisdicional -->
+        <div class="slide">
+            <span class="slide-number">8/12</span>
+            <div class="slide-header">
+                <h2>Supervisão Jurisdicional: O Humano no Centro</h2>
+            </div>
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h3 style="color: #dc3545; font-size: 1.8em;">
+                    "A IA deve ser ferramenta de apoio, nunca substituto do magistrado"
+                </h3>
+            </div>
+            <div class="two-columns">
+                <div class="column">
+                    <h4>✅ Supervisão Efetiva Requer:</h4>
+                    <ul>
+                        <li>Controle humano em todas as decisões</li>
+                        <li>Possibilidade de modificação</li>
+                        <li>Revisão obrigatória em matérias sensíveis</li>
+                        <li>Capacitação dos magistrados</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>🚫 Áreas Críticas:</h4>
+                    <ul>
+                        <li>Liberdade individual</li>
+                        <li>Direitos fundamentais</li>
+                        <li>Direito de família</li>
+                        <li>Casos com alta complexidade contextual</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Ciro (1 min)</strong>
+                A supervisão humana não é opcional - é imperativo constitucional. Passo a palavra para discussão sobre regulamentação e perspectivas futuras.
+            </div>
+        </div>
+
+        <!-- Slide 9: Perspectiva Internacional -->
+        <div class="slide">
+            <span class="slide-number">9/12</span>
+            <div class="slide-header">
+                <h2>Experiências Internacionais</h2>
+            </div>
+            <div style="margin-bottom: 30px;">
+                <h3>🇪🇺 União Europeia</h3>
+                <ul>
+                    <li><strong>AI Act (2021):</strong> Sistemas judiciais classificados como "alto risco"</li>
+                    <li><strong>Carta Ética (2018):</strong> Princípios de transparência e não-discriminação</li>
+                    <li>Abordagem precaucionária centrada em direitos fundamentais</li>
+                </ul>
+            </div>
+            <div style="margin-bottom: 30px;">
+                <h3>🇺🇸 Estados Unidos</h3>
+                <ul>
+                    <li><strong>State v. Loomis:</strong> Algoritmos como ferramenta auxiliar, nunca base exclusiva</li>
+                    <li>Modelo de autorregulação e responsabilidade civil</li>
+                    <li>Fragmentação regulatória entre estados</li>
+                </ul>
+            </div>
+            <div class="highlight">
+                <p><strong>Lição central:</strong> Países com regulamentação mais rigorosa apresentam maior confiança pública no uso judicial de IA</p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Bruno (1 min)</strong>
+                A experiência internacional mostra que regulamentação clara e supervisão humana são essenciais para legitimidade da IA judicial.
+            </div>
+        </div>
+
+        <!-- Slide 10: Caminhos para o Brasil -->
+        <div class="slide">
+            <span class="slide-number">10/12</span>
+            <div class="slide-header">
+                <h2>Propostas para o Marco Regulatório Brasileiro</h2>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>✓ <strong>Supervisão humana obrigatória</strong> em todas as decisões judiciais</li>
+                <li>✓ <strong>Transparência e explicabilidade</strong> dos algoritmos utilizados</li>
+                <li>✓ <strong>Responsabilidade objetiva</strong> do Estado por erros algorítmicos</li>
+                <li>✓ <strong>Participação democrática</strong> no desenvolvimento de sistemas</li>
+                <li>✓ <strong>Capacitação continuada</strong> dos operadores do direito</li>
+                <li>✓ <strong>Auditoria periódica</strong> dos sistemas em operação</li>
+                <li>✓ <strong>Proteção de dados</strong> em conformidade com a LGPD</li>
+            </ul>
+            <div class="highlight" style="margin-top: 30px;">
+                <p style="text-align: center; font-size: 1.2em;">
+                    "Inovação responsável: tecnologia a serviço da justiça, não o contrário"
+                </p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Bruno (1 min)</strong>
+                Propomos um marco regulatório que equilibre inovação com proteção de direitos, garantindo que a IA fortaleça, não fragilize, o sistema de justiça.
+            </div>
+        </div>
+
+        <!-- Slide 11: Conclusões -->
+        <div class="slide">
+            <span class="slide-number">11/12</span>
+            <div class="slide-header">
+                <h2>Considerações Finais</h2>
+            </div>
+            <div style="font-size: 1.2em; line-height: 1.8;">
+                <p style="margin-bottom: 25px;">
+                    <strong>1.</strong> A IA pode ser instrumento valioso para combater a morosidade judicial, mas não pode comprometer a equidade e os direitos fundamentais
+                </p>
+                <p style="margin-bottom: 25px;">
+                    <strong>2.</strong> A governança de dados e a supervisão jurisdicional são pilares inegociáveis para uma automação judicial responsável
+                </p>
+                <p style="margin-bottom: 25px;">
+                    <strong>3.</strong> A Resolução CNJ 615/2025 representa avanço importante, mas ainda necessita complementação legislativa
+                </p>
+                <p style="margin-bottom: 25px;">
+                    <strong>4.</strong> O Brasil tem a oportunidade de construir um modelo que una eficiência tecnológica com proteção jurídica
+                </p>
+            </div>
+            <div class="highlight" style="margin-top: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <p style="text-align: center; font-size: 1.3em;">
+                    "Não se trata de escolher entre eficiência ou justiça, mas de garantir ambas através de uma regulamentação democrática e responsável"
+                </p>
+            </div>
+            <div class="presenter-note">
+                <strong>Apresentador: Bruno (1 min)</strong>
+                Concluímos que o desafio não é tecnológico, mas institucional: construir um Judiciário que use a IA sem perder sua humanidade e legitimidade.
+            </div>
+        </div>
+
+        <!-- Slide 12: Agradecimento -->
+        <div class="slide">
+            <span class="slide-number">12/12</span>
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; text-align: center;">
+                <h1 style="font-size: 3em; margin-bottom: 40px;">Obrigado pela Atenção</h1>
+                <div style="margin: 40px 0;">
+                    <h3>Questões para Debate:</h3>
+                    <div style="text-align: left; max-width: 800px; margin: 30px auto; font-size: 1.2em;">
+                        <p style="margin: 15px 0;">📍 Como garantir transparência algorítmica sem comprometer propriedade intelectual?</p>
+                        <p style="margin: 15px 0;">📍 Qual o papel da advocacia na era da IA judicial?</p>
+                        <p style="margin: 15px 0;">📍 Como capacitar adequadamente os operadores do direito?</p>
+                    </div>
+                </div>
+                <div style="margin-top: 40px;">
+                    <p style="font-size: 1.1em; color: #666;">Contato: [E-MAILS]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Próximo →</button>
+        <span style="color: white; margin: 0 20px; display: flex; align-items: center;">
+            Slide <span id="currentSlide" style="margin: 0 5px;">1</span> de 12
+        </span>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        function showSlide(n) {
+            const slides = document.getElementsByClassName('slide');
+            
+            if (n > totalSlides) {
+                currentSlide = totalSlides;
+            }
+            if (n < 1) {
+                currentSlide = 1;
+            }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            
+            // Atualizar botões
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Navegação por teclado
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'Home') {
+                currentSlide = 1;
+                showSlide(currentSlide);
+            } else if (event.key === 'End') {
+                currentSlide = totalSlides;
+                showSlide(currentSlide);
+            }
+        });
+
+        // Inicializar
+        showSlide(1);
+    </script>
+</body>
+</html>
